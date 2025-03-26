@@ -1,41 +1,75 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- Project coordinates -->
     <groupId>com.example</groupId>
     <artifactId>hello-world</artifactId>
-    <version>1.0.0</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
+    <name>SampleProject</name>
+    <description>A simple servlet-based web app</description>
+
+    <!-- Properties for Java version -->
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
-    <!-- Nexus Repository Configuration -->
+   
+
+    <!-- Dependencies -->
+    <dependencies>
+        <!-- Servlet API -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Optional: JUnit for testing -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- Distribution Management for deploying to Nexus -->
     <distributionManagement>
         <repository>
             <id>NexusRepo</id>
-            <url>http://54.80.200.94:8081/repository/sunildevops/</url>
+            <name>Nexus Release Repository</name>
+            <url>http://54.80.200.94:8081/repository/sunildevops/</url> <!-- Replace with your Nexus URL -->
         </repository>
         <snapshotRepository>
             <id>NexusRepo</id>
-            <url>http://54.80.200.94:8081/repository/sunildevops-Snap/</url>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://54.80.200.94:8081/repository/sunildevops-Snap/</url> <!-- Replace with your Nexus URL -->
         </snapshotRepository>
     </distributionManagement>
 
+    <!-- Build configuration -->
     <build>
+        <finalName>hello-world</finalName>
         <plugins>
+            <!-- Maven Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
+
+            <!-- Maven WAR Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
@@ -46,4 +80,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
