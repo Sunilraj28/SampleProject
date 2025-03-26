@@ -4,39 +4,53 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>devops-sample</artifactId>
-    <version>1.0</version>
+    <artifactId>hello-world</artifactId>
+    <version>1.0.0</version>
     <packaging>war</packaging>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.deploy.skip>false</maven.deploy.skip>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <docker.image.name>hello-world-app</docker.image.name>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>nexus-releases</id>
-            <url>http://<NEXUS_IP>:8081/repository/maven-releases/</url>
-        </repository>
-    </repositories>
-
+    <!-- Nexus Repository Configuration -->
     <distributionManagement>
         <repository>
-            <id>nexus-releases</id>
+            <id>NexusRepo</id>
             <url>http://54.80.200.94:8081/repository/sunildevops/</url>
         </repository>
         <snapshotRepository>
-            <id>nexus-snapshots</id>
+            <id>NexusRepo</id>
             <url>http://54.80.200.94:8081/repository/sunildevops-Snap/</url>
         </snapshotRepository>
     </distributionManagement>
 
     <build>
         <plugins>
+            <!-- WAR Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>3.0.0-M1</version>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.2</version>
+            </plugin>
+
+            <!-- Docker Plugin -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.2.2</version>
+                <configuration>
+                    <imageName>${docker.image.name}</imageName>
+                    <dockerDirectory>src/main/docker</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.war</include>
+                        </resource>
+                    </resources>
+                </configuration>
             </plugin>
         </plugins>
     </build>
