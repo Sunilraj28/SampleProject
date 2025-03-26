@@ -1,45 +1,34 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>hello-world</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>mindcircuitbatch15d</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>Hello World Web App</name>
+	<properties>
+		<docker.image.prefix>kammana</docker.image.prefix>
+		<sonar.host.url>http://3.83.18.215:9000/</sonar.host.url>
 
-    <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <failOnMissingWebXml>false</failOnMissingWebXml>
-    </properties>
+	</properties>
 
-    <dependencies>
-        <!-- Servlet API for JSP & Servlets -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
+	<distributionManagement>
+		 <snapshotRepository>
+		    <id>NexusRepo</id>
+		    <url>http://54.80.200.94:8081/repository/sunildevops-Snap/</url>
+		 </snapshotRepository>
+		
+		<repository>
+		    <id>NexusRepo</id>
+		    <url>http://54.80.200.94:8081/repository/sunildevops/</url>
+		</repository>
+  	</distributionManagement>
 
+    
     <build>
         <plugins>
-            <!-- Compiler Plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-
-            <!-- WAR Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
@@ -48,28 +37,6 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-
-            <!-- Nexus Deployment Plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>3.0.0-M1</version>
-                <configuration>
-                    <repositoryId>nexus</repositoryId>
-                    <url>http://your-nexus-repo-url/repository/maven-releases/</url>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
-
-    <distributionManagement>
-        <repository>
-            <id>NexusRepo</id>
-            <url>http://54.80.200.94:8081/repository/sunildevops/</url>
-        </repository>
-        <snapshotRepository>
-            <id>NexusRepo</id>
-            <url>http://54.80.200.94:8081/repository/sunildevops-Snap/</url>
-        </snapshotRepository>
-    </distributionManagement>
 </project>
